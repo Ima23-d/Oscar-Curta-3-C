@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filme: Depois das águas 3°C</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        .titulo {
+            width: 100%;
+            height: 80px;
+            background-color: black;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            color: rgb(255, 17, 17);
+            line-height: 60px;
+            font-size: 40px;
+            font-weight: bold;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            display:flex;
+        }
+
+        .container {
+            margin-top: 80px;
+        }
+        .movie-section {
+            position: relative;
+            padding: 10px;
+            text-align: center;
+            margin-top: 10px;
+            background-color: green;
+            background: url(enchente.webp);
+            background-size: cover;
+            background-repeat: no-repeat;
+            
+        }
+
+        .movie-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Camada escura */
+            z-index: 1; /* Coloca a camada escura sobre a imagem */
+        }
+
+        .movie-section > * {
+            position: relative;
+            z-index: 2; /* Garante que o conteúdo seja exibido acima da camada escura */
+        }
+
+        .movie-poster {
+            width: 200px;
+            height: auto;
+            margin: 0 auto;
+            border: 0.5px solid black;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), 0 6px 20px rgba(0, 0, 0, 0.19);
+            background-color: black;
+            padding: 4px;
+        }
+
+        .movie-info {
+            margin-top: 10px;
+        }
+
+        .movie-title {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .movie-details {
+            font-size: 14px;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .rating {
+            background-color: #4CAF50;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .btn-ingresso {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .btn-ingresso:hover {
+            background-color: #333;
+        }
+/* 
+        .sinopse-section {
+            background-color: red;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            margin-top: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .sinopse-section h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .sinopse-section p {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: justify;
+        } */
+           .sinopse-section {
+            background-color: red;
+            color: white;
+            padding: 20px;
+            text-align: left;
+            margin-top: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .sinopse-section h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .sinopse-section p {
+            margin-top: 10px;
+            font-size: 16px;
+            text-align: justify;
+        }
+
+        .tabs {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        .tab-menu {
+            display: flex;
+            border-bottom: 2px solid #444;
+        }
+
+        .tab-link {
+            flex: 1;
+            padding: 12px;
+            cursor: pointer;
+            background-color: transparent;
+            color: black;
+            border: none;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .tab-link.active {
+            background-color: transparent;
+            color: red;
+            border-bottom: 2px solid red;
+            transition: background-color 0.3s ease,transform 0.3s ease;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Estilos do carrossel */
+        .carousel {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-image {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-button {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .ava{
+            width: 150px;
+            height: 100px;
+        
+
+        }
+
+        .trailer-section {
+            margin-top: 20px;
+            text-align: center; /* Garante que o conteúdo da seção fique centralizado */
+            width: 100%;
+            border-radius: 20px; 
+               }
+
+        .trailer-section h3 {
+            margin-bottom: 10px;
+            font-size: 24px;
+            color: black;
+            font-weight: bold;
+            width: 100%;
+            
+            
+        }
+
+        .trailer-container {
+            display: flex;
+            justify-content: center; /* Centraliza o iframe */
+            align-items: center;
+            width: 100%;
+            border-radius: 20px; 
+           
+        }
+        h1{
+            color: white;
+            /* display: flex; */
+            font-size: 20px;
+
+            
+        }
+        /* .nota{
+            color: white;
+            font-size: 60px;
+            padding-top: 10px;
+        }
+        .estrela{
+            width: 200px;
+            height: 100px;
+        } */
+
+        .ro{
+            width: 100%;
+            height: 5px;
+            background-color: red;
+        }
+        .f{
+            color: black;
+        }
+        .logo{
+            width: 50px;
+            height: 50px;
+            display: block;
+            padding-left: 10px;
+        }
+
+
+        .p1{
+           width: 300px;
+            height: 260px;
+            background-color: red;
+            border-radius: 10px;
+            margin-right: 10px;
+            display:block;
+            margin-top: 10px;
+            }
+
+        /* .p2{
+            width: 290px;
+            height: 150px;
+            background-color:black;
+            border-radius: 10px 10px 0px 00px;
+            padding-left: 10px; 
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        } */
+
+        
+        .p2{
+            width: 290px;
+            height: 175px;
+            background-color:rgb(175, 174, 174);
+            border-radius: 10px 10px 0px 00px;
+            padding-left: 10px; 
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+
+        .tab-content-1 {
+            display:flex;
+            padding: 20px;
+            color: #333;
+            background-color: #f5f5f5;
+
+        }
+ 
+
+        
+        .tab-content {
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        iframe{
+            width: 100%;
+            border-radius: 10px;
+        }
+        
+
+        /* .carousel-images-p {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-image-p {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+
+        .carousel-buttons-p {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+        .carousel-button-p {
+            background-color: transparent;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        } */
+
+        /* .per{
+            width: 165px;
+            width: 165px;
+            filter: drop-shadow(1px 1px 10px white);
+            margin-bottom: 70px;
+            
+        } */
+        .t{
+            color: black;
+        }
+        .mae{
+            width: 165px;
+            width: 165px;
+            filter: drop-shadow(1px 1px 10px black);
+            margin-bottom: 70px;
+            
+        }
+
+        .jornalista{
+            width:128px;
+            width:128px;
+            filter: drop-shadow(1px 1px 10px black);
+            margin-bottom: 18px;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Título principal do filme -->
+    <!-- <div class="titulo">
+        <img src="logo3ao1824 MAT vermelho 3C.png" alt="" class="logo">
+        Filme do 3°C
+    </div> -->
+    <div class="titulo">
+        
+        Oscar do 
+        <img src="logo3ao2024 MAT vermelho 3C.png" alt="" class="logo">
+    </div>
+<!-- 
+
+
+        <div class="movie-section">
+            <img src="vidas secas.jpg" alt="Vidas Secas Capa" class="movie-poster" id="moviePoster">
+            <div class="movie-info">
+                <h2 class="movie-title">Vidas Secas</h2>
+                <div class="movie-details">
+                    <span class="rating">L</span>
+                    <span>15min | Drama</span>
+                </div>
+               
+            </div>
+        </div> -->
+    <div class="container"> 
+
+        <div class="movie-section">
+            <img src="capa.jpeg" alt="Vidas Secas Capa" class="movie-poster" id="moviePoster">
+            <div class="movie-info">
+                <h2 class="movie-title">Depois das águas</h2>
+                <div class="movie-details">
+                    <span class="rating">L</span>
+                    <span>15min | Drama</span>
+                </div>
+                <a href="page.html">
+                    <button class="btn-ingresso">Ingresso 🎫</button>
+                </a>
+                
+                 <!-- <from>
+                 <h1 class="nota">4,6</h1>
+                 <img src="estrela.PNG" alt="" class="estrela">
+                </from> -->
+            </div>
+        </div>
+        <div class="ro"></div>
+        <h1 class="t">Avaliações</h1>
+        <img src="avaliar-removebg-preview.png" alt="avaliar" class="ava">
+
+        <!-- Sistema de abas -->
+        <div class="tabs">
+            <div class="tab-menu">
+                <button class="tab-link active" onclick="openTab(event, 'sobre')">Sobre o filme</button>
+                <button class="tab-link" onclick="openTab(event, 'outras')">Produção</button>
+                <button class="tab-link" onclick="openTab(event, 'personagens')">Personagens</button>
+            </div>
+
+            <div id="sobre" class="tab-content active">
+                <div class="sinopse-section">
+                    <h3>Sinopse</h3>
+                    <hr>
+                <p>Após perder tudo em uma enchente devastadora em Palmares, Tereza, mãe solteira, tenta reconstruir sua vida com as filhas na casa do irmão em uma nova cidade. Entre desafios financeiros, tensões familiares e preconceito, ela luta por dignidade e esperança. Uma história emocionante sobre resiliência e recomeços.</p>
+                </div>
+                <div class="carousel">
+                    <h1 class="f">Fotos</h1>
+                    <div class="carousel-images">
+                        <img src="IMG_3656.JPG" alt="Foto 1" class="carousel-image">
+                        <img src="IMG_3669.JPG" alt="Foto 2" class="carousel-image">
+                        <img src="IMG_3591.JPG" alt="Foto 3" class="carousel-image">
+                        <img src="mae olhando.jpeg" alt="Foto 4" class="carousel-image">
+                        <img src="mae olhando 2.jpeg" alt="Foto 5" class="carousel-image">
+
+                    </div>
+                    <div class="carousel-buttons">
+                        <button class="carousel-button" id="prevBtn">&#10094;</button>
+                        <button class="carousel-button" id="nextBtn">&#10095;</button>
+                    </div>
+                </div>
+                <div class="trailer-section">
+                    <!-- <from>
+                        <span><h1>Trailer</h1> <img src="cinema.png" alt="cinema" class="cine"></span>
+                    </from>
+                     -->
+                    <h1 class="t">Trailer</h1>
+                    <div class="trailer-container">
+                        <iframe width="560" height="315" src="trailer.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    
+                </div>
+        
+            </div>
+
+            <div id="outras" class="tab-content">
+                <div class="sinopse-section">
+                    <h3>Produção</h3>
+                    <hr>
+                    <!-- <p>Direção:</p>
+                    <p>Produção:</p> -->
+                    <p><strong>Progamação do site:</strong> Arthur Franco</p>
+                    <p><strong>Edição:</strong> Arthur Franco, Uriel, Gustavo, Leticia, Mayane, Albérico, Priscilla, Joecilia, Edmilson.</p>
+                    <p><strong>Roteiro:</strong> Anna Joecilia, Maria Tereza, Leticia, Ana Beatriz, Anazelia, Mayara, Maria Flor, Christian, 
+                        Uriel, Fernando, Derick, Leonardo, Mayane, Julia Letícia.</p>
+                    <p><strong>Figurino e Maquiagem:</strong> Uriel, Mayane, Lizzy, Yuri, Kissia, Vitória, Joecilia, Isadora, Tially, Anna Beatriz. </p>
+                    <p><strong>Animação:</strong> Ana Beatriz, Uriel, Mayane, João Eugênio.</p>
+                    <p><strong>Divulgação:</strong> Kissia, Gustavo, Joecilia, Mayane, Mayara, Yuqui, Guilherme, Tially, Luiz Arthur, Julia Letícia.</p>
+                    <p><strong>Atuação:</strong> Mayara, João Eugênio, Christian, Priscilla, Mycael, Lizzy, Yuri, Mayane, Rodrigo, Joseph, Maria Tereza, Gabriel, Maria Rita, Julia Letícia.</p>
+                    <p><strong>Fotografia:</strong> Mayane, Uriel, Mycael, Lizzy, Maria Flor, Vitória, Mayara, Maria Rita, Isadora, Cawan Lopes, Albérico, Anna Beatriz, Carla.</p>
+                </div>
+            </div>
+
+         
+        <div id="personagens" class="tab-content">
+
+      
+
+                <div class="p1">
+                    <div class="p2">
+                        <img src="mae.png" alt="" class="mae">
+                    </div>
+                    <h1>Personagem | Mãe<br>Nome | Mayara</h1>
+                </div>
+
+                <div class="p1">
+                    <div class="p2">
+                        <img src="jornalista.png" alt="" class="jornalista">
+                    </div>
+                    <h1>Personagem | Jornalista<br>Nome | Gabriel</h1>
+                </div>
+
+                <div class="p1">
+                    <div class="p2">
+                        <img src="francisco.png" alt="" class="jornalista">
+                    </div>
+                    <h1>Personagem | Francisco<br>Nome | Mycael</h1>
+                </div>
+
+                <div class="p1">
+                    <div class="p2">
+                        <img src="filha.png" alt="" class="jornalista">
+                    </div>
+                    <h1>Personagem | Filha<br>Nome | Lizzy</h1>
+                </div>
+
+                <div class="p1">
+                    <div class="p2">
+                        <img src="Chefe.png" alt="" class="jornalista">
+                    </div>
+                    <h1>Personagem | Chefe<br>Nome | Joseph</h1>
+                </div>
+
+        
+
+              
+            </div> 
+
+            <!-- <div id="personagens" class="tab-content">
+            <div class="carousel-images-p">
+                <img src="sertão.jpg" alt="Foto 1" class="carousel-image-p">
+                <img src="sertao2.jpg" alt="Foto 2" class="carousel-image-p">
+                <img src="sertão2.jpg" alt="Foto 3" class="carousel-image-p">
+            </div>
+            <div class="carousel-buttons-p">
+                <button class="carousel-button" id="prevBtn-p">&#10094;</button>
+                <button class="carousel-button" id="nextBtn-p">&#10095;</button>
+            </div> -->
+
+        </div> 
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        // Carrossel
+        const carouselImages = document.querySelector('.carousel-images');
+        const images = document.querySelectorAll('.carousel-image');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            const totalImages = images.length;
+            currentIndex = (index + totalImages) % totalImages;
+            const offset = -currentIndex * 100;
+            carouselImages.style.transform = `translateX(${offset}%)`;
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            showImage(currentIndex + 1);
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            showImage(currentIndex - 1);
+        });
+
+        // Tabs
+        function openTab(event, tabId) {
+            const tabLinks = document.querySelectorAll(".tab-link");
+            tabLinks.forEach(link => link.classList.remove("active"));
+            const tabContents = document.querySelectorAll(".tab-content");
+            tabContents.forEach(content => content.classList.remove("active"));
+            document.getElementById(tabId).classList.add("active");
+            event.currentTarget.classList.add("active");
+        }
+
+        //carrosel personagem
+        // const carouselImagesp = document.querySelector('.carousel-images-p');
+        // const imagesp = document.querySelectorAll('.carousel-image-p');
+        // let currentIndexp = 0;
+
+        // function showImage(index) {
+        //     const totalImages = imagesp.length;
+        //     currentIndexp = (index + totalImages) % totalImages; // Garante que o índice esteja no intervalo válido
+        //     const offset = -currentIndexp * 160; // Move em múltiplos da largura do container
+        //     carouselImagesp.style.transform = `translateX(${offset}px)`;
+        // }
+
+        // document.getElementById('nextBtn-p').addEventListener('click', () => {
+        //     showImage(currentIndexp + 1);
+        // });
+
+        // document.getElementById('prevBtn-p').addEventListener('click', () => {
+        //     showImage(currentIndexp - 1);
+        // });
+
+        // // Inicializa o carrossel
+        // showImage(0);
+    </script>
+
+</body>
+</html>
